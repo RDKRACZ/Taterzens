@@ -62,6 +62,7 @@ dependencies {
 	// DisguiseLib
 	//modImplementation "xyz.nucleoid:DisguiseLib:${project.disguiselib_version}"
 	modImplementation "com.github.NucleoidMC:DisguiseLib:${project.disguiselib_version}"
+	modImplementation include("com.github.Patbox:sgui:${project.sgui_version}")
 
 	modRuntime 'com.github.CaffeineMC:hydrogen-fabric:mc1.16.5-v0.2.0'
 	modRuntime 'com.github.astei:lazydfu:0.1.2'

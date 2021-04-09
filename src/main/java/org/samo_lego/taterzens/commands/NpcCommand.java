@@ -9,6 +9,7 @@ import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.exceptions.SimpleCommandExceptionType;
 import com.mojang.brigadier.suggestion.SuggestionProvider;
+import com.mojang.brigadier.tree.CommandNode;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.block.entity.SkullBlockEntity;
 import net.minecraft.command.CommandSource;
@@ -28,6 +29,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.samo_lego.taterzens.api.TaterzensAPI;
 import org.samo_lego.taterzens.compatibility.DisguiseLibCompatibility;
+import org.samo_lego.taterzens.gui.EditorGUI;
 import org.samo_lego.taterzens.interfaces.TaterzenEditor;
 import org.samo_lego.taterzens.npc.NPCData;
 import org.samo_lego.taterzens.npc.TaterzenNPC;
@@ -35,6 +37,7 @@ import org.samo_lego.taterzens.npc.TaterzenNPC;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.NoSuchElementException;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
@@ -60,6 +63,7 @@ public class NpcCommand {
 
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher, boolean dedicated) {
         dispatcher.register(literal("npc")
+                .executes(NpcCommand::openGui)
                 .requires(serverCommandSource -> serverCommandSource.hasPermissionLevel(4) || LUCKPERMS_ENABLED)
                 .then(literal("create")
                         .then(argument("name", message())
@@ -174,6 +178,19 @@ public class NpcCommand {
                         )
                 )
         );
+    }
+
+    private static int openGui(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
+        ServerPlayerEntity player = context.getSource().getPlayer();
+
+        CommandDispatcher<ServerCommandSource> dispatcher = player.getServer().getCommandManager().getDispatcher();
+        CommandNode<ServerCommandSource> npcNode = dispatcher.findNode(Collections.singleton("npc"));
+
+        EditorGUI gui = new EditorGUI(context, player, npcNode, null);
+        gui.setTitle(new LiteralText("NPC editing"));
+        gui.open();
+
+        return 0;
     }
 
     private static int setEquipmentDrops(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
