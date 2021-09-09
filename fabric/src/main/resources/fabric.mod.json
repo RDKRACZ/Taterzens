@@ -10,7 +10,8 @@
   ],
   "contact": {
     "homepage": "https://samolego.github.io/Taterzens",
-    "sources": "https://github.com/samolego/Taterzens"
+    "sources": "https://github.com/samolego/Taterzens",
+    "issues": "https://github.com/samolego/Taterzens/issues"
   },
 
   "license": "MIT",
