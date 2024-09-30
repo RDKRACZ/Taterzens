@@ -1,0 +1,33 @@
+name: Docs new version release
+
+on:
+    workflow_dispatch:
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3.x
+    - run: pip install mkdocs-material
+    - run: pip install mike
+    - run: pip install mkdocs-awesome-pages-plugin
+    - name: Setup doc deploy
+      run: |
+        git config --global user.name samo_lego
+        git config --global user.email 34912839+samolego@users.noreply.github.com
+    - id: releasetag
+      uses: pozetroninc/github-action-get-latest-release@master
+      with:
+            repository: ${{ github.repository }}
+    - name: Release docs website
+      run: |
+        mike delete --push latest
+        mike deploy --push  --update-aliases ${{ steps.releasetag.outputs.release }} latest
+        echo "Setting default: ${{ steps.releasetag.outputs.release }}"
+        mike set-default ${{ steps.releasetag.outputs.release }} --push

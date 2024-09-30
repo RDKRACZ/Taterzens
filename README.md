@@ -15,9 +15,19 @@ A fabric / forge citizens like NPC mod.
 
 # **-> *[Documentation](https://samolego.github.io/Taterzens/)* <-**
 
+
+https://user-images.githubusercontent.com/34912839/142493879-6f642eb1-e226-4798-abfd-ef190f7fe4a8.mp4
+
+## Addons
+* [Traders](https://github.com/samolego/TraderNPCs)
+* [Blacksmiths](https://github.com/samolego/Blacksmiths)
+
+## Thanks
+* [SGUI mod by Patbox](https://github.com/Patbox/sgui) (<- make sure to give this a star!)
+
 ## Translation contributions
 1. Fork the repository
-2. Add [language file](https://github.com/samolego/Taterzens/tree/master/common/src/main/resources/data/taterzens/lang) (make sure to follow the [Minecraft language codes](https://minecraft.gamepedia.com/Language)) as json.
+2. Add [language file](https://github.com/samolego/Taterzens/tree/master/common/src/main/resources/data/taterzens/lang) (make sure to follow the [Minecraft language codes](https://minecraft.wiki/w/Language)) as json.
     1. Name it e.g. `en_us.json` for American English
     2. Translate the messages
 3. Commit the file and submit a PR :wink:
@@ -30,14 +40,16 @@ A fabric / forge citizens like NPC mod.
 
 **Warning!**
 
-Taterzens mod uses **[ParchmentMC](https://parchmentmc.org/) mappings.**
+Taterzens mod uses **official mojang mappings.**
 If you're a [Yarn](https://github.com/FabricMC/yarn) contributor, you might **not want** to see the source!
 
 ### Dependency
 Add `jitpack.io` maven repository.
 ```gradle
 repositories {
-    maven { url 'https://jitpack.io' }
+    maven { url 'https://jitpack.io' }  // Taterzens itself
+    maven { url 'https://maven.nucleoid.xyz' }  // Nucleoid (good stuff)
+    maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }  // Permission API
 }
 ```
 
